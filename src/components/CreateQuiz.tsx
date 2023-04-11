@@ -20,7 +20,7 @@ const DEFAULT_FORM_VALUES = {
 }
 
 export default function CreateQuiz() {
-  const { control, handleSubmit, formState: { isDirty, isValid, isSubmitting } } = useForm<CreateQuizProps>({
+  const { control, handleSubmit, formState: { errors, isSubmitting } } = useForm<CreateQuizProps>({
     defaultValues: DEFAULT_FORM_VALUES
   });
 
@@ -29,8 +29,6 @@ export default function CreateQuiz() {
   const onSubmit: SubmitHandler<CreateQuizProps> = (form: CreateQuizProps) => {
     console.log(form);
   }
-
-  console.log(form);
 
   return form && (
     <div className="w-3/4 relative">
@@ -45,10 +43,10 @@ export default function CreateQuiz() {
         <div className="bg-white rounded p-3 fixed top-8 right-8 shadow-lg">
           <div className="flex flex-col gap-3">
             <Button
-              tooltip="Salvar"
+              tooltip="Enviar"
               props={{
                 type: "submit",
-                disabled: !isDirty || !isValid || isSubmitting
+                disabled: isSubmitting
               }}
             >
               <MdSave className="text-2xl" />
@@ -81,6 +79,10 @@ export default function CreateQuiz() {
                 />
               )}
             </div>
+
+            {errors?.answer?.[indexQuestion]?.text?.type === 'required' && (
+              <span className="text-sm italic text-red-500">Campo obrigatório!</span>
+            )}
           </div>
         ))}
       </form>

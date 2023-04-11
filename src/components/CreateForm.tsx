@@ -18,6 +18,8 @@ export default function CreateForm() {
     defaultValues: DEFAULT_FORM_VALUES
   });
 
+  const { errors } = formState;
+
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -39,6 +41,10 @@ export default function CreateForm() {
               placeholder: "Título"
             }}
           />
+
+          {errors?.title?.type === 'required' && (
+            <span className="text-sm italic text-red-500">Campo obrigatório!</span>
+          )}
         </div>
         <div className="my-4 leading-6 space-y-4 sm:leading-7">
           <Input
@@ -49,6 +55,10 @@ export default function CreateForm() {
               placeholder: "Descrição"
             }}
           />
+
+          {errors?.description?.type === 'required' && (
+            <span className="text-sm italic text-red-500">Campo obrigatório!</span>
+          )}
         </div>
       </div>
 

@@ -22,6 +22,7 @@ export default function Input({ name, control, props }: InputProps) {
           className="mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-blue"
         />
       )}
+      rules={{ required: true }}
       name={name}
       control={control}
     />

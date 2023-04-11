@@ -27,6 +27,7 @@ export default function InputRadio({ name, control, props }: InputProps) {
           </label>
         </>
       )}
+      rules={{ required: true }}
       name={name}
       control={control}
     />

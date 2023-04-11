@@ -25,7 +25,7 @@ export default function Questions({ control, watch, formState }: QuestionsProps)
     name: 'questions'
   });
 
-  const { isDirty, isValid, isSubmitting } = formState;
+  const { errors, isSubmitting } = formState;
 
   const typeAnswerWatch = fields.map((_, index) => watch(`questions.${index}.typeAnswer`));
 
@@ -37,7 +37,7 @@ export default function Questions({ control, watch, formState }: QuestionsProps)
             tooltip="Salvar"
             props={{
               type: "submit",
-              disabled: !isDirty || !isValid || isSubmitting
+              disabled: isSubmitting
             }}
           >
             <MdSave className="text-2xl" />
@@ -70,7 +70,11 @@ export default function Questions({ control, watch, formState }: QuestionsProps)
               }}
             />
 
-            <Answers {...{ indexQuestion, typeAnswerWatch, control }} />
+            {errors?.questions?.[indexQuestion]?.title?.type === 'required' && (
+              <span className="text-sm italic text-red-500">Campo obrigatório!</span>
+            )}
+
+            <Answers {...{ indexQuestion, typeAnswerWatch, control, formState }} />
           </div>
 
           <div className="flex justify-between p-6">
